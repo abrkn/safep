@@ -24,7 +24,5 @@ function safeFunction(fn) {
   };
 }
 
-Object.assign(exports, {
-  safePromise,
-  safeFunction,
-});
+exports.safePromise = safePromise;
+exports.safeFunction = safeFunction;
