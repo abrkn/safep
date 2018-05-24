@@ -1,17 +1,21 @@
 function safePromise(promise) {
   return promise.then(
-    result => [undefined, result],
-    error => [error, undefined]
+    function(result) {
+      return [undefined, result];
+    },
+    function(error) {
+      return [error, undefined];
+    }
   );
 }
 
 function safeFunction(fn) {
-  return function(...args) {
-    let error = undefined;
-    let result = undefined;
+  return function() {
+    var error = undefined;
+    var result = undefined;
 
     try {
-      result = fn.apply(this, args);
+      result = fn.apply(this, arguments);
     } catch (e) {
       error = e;
     }
