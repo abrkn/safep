@@ -1,5 +1,8 @@
 function safePromise(promise) {
-  return promise.then(result => [undefined, result]).catch(error => [error, undefined]);
+  return promise.then(
+    result => [undefined, result],
+    error => [error, undefined]
+  );
 }
 
 function safeFunction(fn) {
