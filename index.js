@@ -1,3 +1,6 @@
+const assert = require('assert');
+const { promisify } = require('util');
+
 function safePromise(promise) {
   return promise.then(
     function(result) {
@@ -24,5 +27,22 @@ function safeFunction(fn) {
   };
 }
 
+// applyTo(target, ...methods)
+function applyTo() {
+  const target = arguments[0];
+  assert(target, 'target is required');
+
+  const methods = Array.prototype.slice.call(arguments, 1);
+
+  for (const name of methods) {
+    const asyncName = name + 'Async';
+    const safeName = name + 'Safe';
+
+    target[asyncName] = promisify(target[name].bind(target));
+    target[safeName] = safeFunction(target[asyncName]);
+  }
+}
+
 exports.safePromise = safePromise;
 exports.safeFunction = safeFunction;
+exports.applyTo = applyTo;
