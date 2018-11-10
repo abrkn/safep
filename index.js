@@ -41,6 +41,8 @@ function applyTo() {
     target[asyncName] = promisify(target[name].bind(target));
     target[safeName] = safeFunction(target[asyncName]);
   }
+
+  return target;
 }
 
 exports.safePromise = safePromise;
